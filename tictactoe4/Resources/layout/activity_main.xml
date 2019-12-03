@@ -45,7 +45,7 @@
         android:layout_weight="1">
 
 
-    <Button
+    <ImageButton
         android:id="@+id/button_00"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -53,7 +53,7 @@
         android:textSize="0sp"
         android:freezesText="true"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/button_01"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -61,7 +61,7 @@
             android:textSize="0sp"
             android:freezesText="true"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/button_02"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -77,7 +77,7 @@
         android:layout_weight="1">
 
 
-        <Button
+        <ImageButton
             android:id="@+id/button_10"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -85,7 +85,7 @@
             android:textSize="0sp"
             android:freezesText="true"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/button_11"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -93,7 +93,7 @@
             android:textSize="0sp"
             android:freezesText="true"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/button_12"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -109,7 +109,7 @@
         android:layout_weight="1">
 
 
-        <Button
+        <ImageButton
             android:id="@+id/button_20"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -117,7 +117,7 @@
             android:textSize="0sp"
             android:freezesText="true"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/button_21"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -125,7 +125,7 @@
             android:textSize="0sp"
             android:freezesText="true"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/button_22"
             android:layout_width="0dp"
             android:layout_height="match_parent"

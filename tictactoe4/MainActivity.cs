@@ -14,9 +14,7 @@ namespace tictactoe4
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        private Button[][] buttons = { new Button[3], new Button[3], new Button[3] };
-        private Button buttonReset;
-
+        private readonly ImageButton[,] buttons = new ImageButton[3, 3];
         private bool player1turn = true;
 
         private int roundCount;
@@ -28,26 +26,28 @@ namespace tictactoe4
         private TextView textViewPlayer2;
 
 
-        protected internal override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView = Resource.Layout.activity_main;
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            SetContentView(Resource.Layout.activity_main);
 
-            textViewPlayer1 = FindViewById(Resource.Id.text_view_p1);
-            textViewPlayer2 = FindViewById(Resource.Id.text_view_p2);
+            textViewPlayer1 = FindViewById<TextView>(Resource.Id.text_view_p1);
+            textViewPlayer2 = FindViewById<TextView>(Resource.Id.text_view_p2);
 
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
                     string buttonID = "button_" + i + j;
-                    int resID = Resources.GetIdentifier(buttonID, "id", PackageName);
-                    buttons[i][j] = FindViewById(resID);
-                    buttons[i][j].OnClickListener = this;
+                    int buttonResId = Resources.GetIdentifier(buttonID, "id", PackageName);
+                    buttons[i, j] = FindViewById<ImageButton>(buttonResId);
+                    buttons[i, j].SetOnClickListener(this);
+                    buttons[i, j].Tag = Resource.Drawable.resetblock;
                 }
             }
 
-            buttonReset = FindViewById(R.id.button_reset);
+            Button buttonReset = FindViewById<Button>(Resource.Id.button_reset);
             buttonReset.SetOnClickListener(new OnClickListenerAnonymousInnerClass(this));
         }
 
@@ -67,7 +67,7 @@ namespace tictactoe4
                 throw new NotImplementedException();
             }
 
-            public override void onClick(View v)
+            public void onClick(View v)
             {
                 outerInstance.resetGame();
 
@@ -79,7 +79,7 @@ namespace tictactoe4
             }
         }
 
-        public override void OnClick(View v)
+        public void OnClick(View v)
         {
             if (!((Button)v).Text.ToString().Equals(""))
             {
@@ -89,12 +89,12 @@ namespace tictactoe4
             if (player1turn)
             {
                 ((Button)v).Text = "x";
-                v.SetBackgroundResource = Resource.Drawable.triangle;
+                v.SetBackgroundResource(Resource.Drawable.triangle);
             }
-            else
+            else 
             {
                 ((Button)v).Text = "o";
-                v.SetBackgroundResource = Resource.Drawable.square;
+                v.SetBackgroundResource(Resource.Drawable.square);
             }
 
             roundCount++;
@@ -129,7 +129,7 @@ namespace tictactoe4
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    field[i][j] = buttons[i][j].Text.ToString();
+                    field[i][j] = buttons[i, j].Context.ToString();
                 }
             }
 
@@ -165,7 +165,7 @@ namespace tictactoe4
         private void player1Wins()
         {
             player1Points++;
-            Toast.MakeText(this, "Player 1 wins!", Toast.LENGTH_SHORT).show();
+            Toast.MakeText(this, "Player 1 wins!", ToastLength.Long).Show();
             updatePointsText();
             resetBoard();
         }
@@ -173,14 +173,14 @@ namespace tictactoe4
         private void player2Wins()
         {
             player2Points++;
-            Toast.MakeText(this, "Player 1 wins!", Toast.LENGTH_SHORT).show();
+            Toast.MakeText(this, "Player 1 wins!", ToastLength.Long).Show();
             updatePointsText();
             resetBoard();
         }
 
         private void draw()
         {
-            Toast.MakeText(this, "Draw!", Toast.LENGTH_SHORT).show();
+            Toast.MakeText(this, "Draw!", ToastLength.Long).Show();
             resetBoard();
         }
 
@@ -196,8 +196,8 @@ namespace tictactoe4
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    buttons[i][j].Text = "";
-                    buttons[i][j].Background = buttonReset.Background;
+                    buttons[i, j].SetImageResource(Resource.Drawable.resetblock);
+                    buttons[i, j].Tag = Resource.Drawable.resetblock;
                 }
             }
 
@@ -213,7 +213,7 @@ namespace tictactoe4
             resetBoard();
         }
 
-        protected internal override void OnSaveInstanceState(Bundle outState)
+        protected override void OnSaveInstanceState(Bundle outState)
         {
             base.OnSaveInstanceState(outState);
 
@@ -224,7 +224,7 @@ namespace tictactoe4
         }
 
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotatio
-        protected internal override void OnRestoreInstanceState(Bundle savedInstanceState)
+        protected override void OnRestoreInstanceState(Bundle savedInstanceState)
         {
             base.OnRestoreInstanceState(savedInstanceState);
 
